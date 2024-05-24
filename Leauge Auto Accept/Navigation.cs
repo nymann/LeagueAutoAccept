@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Data.Common;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 
 namespace Leauge_Auto_Accept
@@ -72,6 +69,7 @@ namespace Leauge_Auto_Accept
                     {
                         UI.delayMenuDesc(currentPos);
                     }
+
                     Print.isMovingPos = false;
                 }
             }
@@ -97,6 +95,7 @@ namespace Leauge_Auto_Accept
                 case "pages":
                     return handlePointerMovementPages(key);
             }
+
             return false;
         }
 
@@ -109,6 +108,7 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos--;
                     return true;
 
@@ -117,9 +117,11 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos++;
                     return true;
             }
+
             return false;
         }
 
@@ -132,6 +134,7 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos--;
                     return true;
 
@@ -140,6 +143,7 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos--;
                     return true;
 
@@ -148,6 +152,7 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos++;
                     return true;
 
@@ -156,9 +161,11 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos++;
                     return true;
             }
+
             return false;
         }
 
@@ -171,6 +178,7 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos--;
                     return true;
 
@@ -179,6 +187,7 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos++;
                     return true;
 
@@ -187,6 +196,7 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos += UI.totalRows;
                     return true;
 
@@ -196,9 +206,11 @@ namespace Leauge_Auto_Accept
                         currentPos = 0;
                         return false;
                     }
+
                     currentPos -= UI.totalRows;
                     return true;
             }
+
             return false;
         }
 
@@ -211,6 +223,7 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos--;
                     return true;
 
@@ -219,6 +232,7 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     currentPos++;
                     return true;
 
@@ -227,6 +241,7 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     // TODO: improve this somehow
                     UI.currentPage++;
                     currentPos = 0;
@@ -238,12 +253,14 @@ namespace Leauge_Auto_Accept
                     {
                         return false;
                     }
+
                     // TODO: improve this somehow
                     UI.currentPage--;
                     currentPos = 0;
                     UI.chatMessagesWindow(UI.currentPage);
                     return true;
             }
+
             return false;
         }
 
@@ -266,6 +283,7 @@ namespace Leauge_Auto_Accept
                     {
                         UI.leagueClientIsClosedMessage();
                     }
+
                     break;
                 case "leagueClientIsClosedMessage":
                     UI.exitMenu();
@@ -281,6 +299,7 @@ namespace Leauge_Auto_Accept
                     {
                         currentInput = "";
                     }
+
                     UI.mainScreen();
                     break;
             }
@@ -299,6 +318,7 @@ namespace Leauge_Auto_Accept
                     {
                         UI.settingsMenuUpdateUI(currentPos);
                     }
+
                     break;
                 case "delayMenu":
                     //Settings.delayModify(currentPos);
@@ -319,8 +339,10 @@ namespace Leauge_Auto_Accept
                         {
                             Settings.saveSelectedSpell();
                         }
+
                         UI.mainScreen();
                     }
+
                     break;
                 case "chatMessagesWindow":
                     UI.messageIndex = currentPos;
@@ -367,6 +389,7 @@ namespace Leauge_Auto_Accept
                     UI.updateCurrentFilter();
                 }
             }
+
             if (UI.currentWindow == "chatMessagesEdit")
             {
                 if (currentInput.Length < 200)
@@ -438,6 +461,7 @@ namespace Leauge_Auto_Accept
                     positionLeft = consolePos[1];
                     positionTop = consolePos[0];
                 }
+
                 Print.printWhenPossible("  ", positionTop, positionLeft, false);
             }
 
@@ -492,6 +516,7 @@ namespace Leauge_Auto_Accept
                     positionLeft = consolePos[1];
                     positionTop = consolePos[0];
                 }
+
                 Print.printWhenPossible("->", positionTop, positionLeft, false);
             }
             if (UI.showCursor)
@@ -504,12 +529,12 @@ namespace Leauge_Auto_Accept
         private static int[] getPositionOnConsole(int pos)
         {
             // Calculate the current row
-            double row1 = pos / UI.totalRows;       //  1.111111111111111
-            double row2 = Math.Floor(row1);         //  1
+            double row1 = pos / UI.totalRows; //  1.111111111111111
+            double row2 = Math.Floor(row1); //  1
 
             // Calculate the current column
-            double column1 = row2 * UI.totalRows;   //  27
-            double column2 = pos - column1;         //  3
+            double column1 = row2 * UI.totalRows; //  27
+            double column2 = pos - column1; //  3
 
             // Convert to integer, caclulate column width
             int column = Convert.ToInt32(column2);
@@ -536,6 +561,7 @@ namespace Leauge_Auto_Accept
                 {
                     Settings.updateChatMessage();
                 }
+
                 UI.chatMessagesWindow();
             }
             else if (currentPos == 1)

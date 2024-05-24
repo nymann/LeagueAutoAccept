@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Linq;
-using System.Net.Http.Headers;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -33,10 +33,12 @@ namespace Leauge_Auto_Accept
                             Data.loadChampionsList();
                             Data.loadSpellsList();
                         }
+
                         if (Settings.shouldAutoAcceptbeOn)
                         {
                             MainLogic.isAutoAcceptOn = true;
                         }
+
                         if (UI.currentWindow != "exitMenu")
                         {
                             UI.mainScreen();
@@ -55,6 +57,7 @@ namespace Leauge_Auto_Accept
                         UI.leagueClientIsClosedMessage();
                     }
                 }
+
                 Thread.Sleep(2000);
             }
         }
@@ -102,7 +105,8 @@ namespace Leauge_Auto_Accept
             // Ignore invalid https
             var handler = new HttpClientHandler()
             {
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+                ServerCertificateCustomValidationCallback =
+                    HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
             };
             try
             {
@@ -173,6 +177,7 @@ namespace Leauge_Auto_Accept
                     }
                 }
             }
+
             return request;
         }
     }

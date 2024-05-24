@@ -27,6 +27,7 @@ namespace Leauge_Auto_Accept
         public static int totalPages = 0;
 
         private static int[] cursorPositionValue = { 0, 0 };
+
         public static int[] cursorPosition
         {
             get { return cursorPositionValue; }
@@ -38,6 +39,7 @@ namespace Leauge_Auto_Accept
         }
 
         private static bool showCursorValue = false;
+
         public static bool showCursor
         {
             get { return showCursorValue; }
@@ -47,6 +49,7 @@ namespace Leauge_Auto_Accept
                 {
                     Console.CursorVisible = value;
                 }
+
                 showCursorValue = value;
             }
         }
@@ -90,12 +93,14 @@ namespace Leauge_Auto_Accept
             if (direction == "width")
             {
                 Print.printCentered("Console width is too small. Please resize it.", SizeHandler.HeightCenter);
-                Print.printCentered("Minimum width:" + SizeHandler.minWidth + " | Current width:" + SizeHandler.WindowWidth);
+                Print.printCentered("Minimum width:" + SizeHandler.minWidth + " | Current width:" +
+                                    SizeHandler.WindowWidth);
             }
             else
             {
                 Print.printCentered("Console height is too small. Please resize it.", SizeHandler.HeightCenter);
-                Print.printCentered("Minimum height:" + SizeHandler.minHeight + " | Current height:" + SizeHandler.WindowHeight);
+                Print.printCentered("Minimum height:" + SizeHandler.minHeight + " | Current height:" +
+                                    SizeHandler.WindowHeight);
             }
         }
 
@@ -109,6 +114,7 @@ namespace Leauge_Auto_Accept
             {
                 windowToReload = previousWindow;
             }
+
             switch (windowToReload)
             {
                 case "mainScreen":
@@ -176,7 +182,8 @@ namespace Leauge_Auto_Accept
             }
 
             // Define options
-            string[] optionName = {
+            string[] optionName =
+            {
                 "Select a champion",
                 "Select a ban",
                 "Select summoner spell 1",
@@ -184,7 +191,8 @@ namespace Leauge_Auto_Accept
                 "Instant chat messages",
                 "Enable auto accept"
             };
-            string[] optionValue = {
+            string[] optionValue =
+            {
                 Settings.currentChamp[0],
                 Settings.currentBan[0],
                 Settings.currentSpell1[0],
@@ -232,7 +240,8 @@ namespace Leauge_Auto_Accept
             Console.Clear();
 
             // Define options
-            string[] optionName = {
+            string[] optionName =
+            {
                 "Save settings/config",
                 "Preload data",
                 "Instalock pick",
@@ -244,7 +253,8 @@ namespace Leauge_Auto_Accept
                 "Delay settings"
             };
 
-            string[] optionValue = {
+            string[] optionValue =
+            {
                 Settings.saveSettings ? "Yes" : "No",
                 Settings.preloadData ? "Yes" : "No",
                 Settings.instaLock ? "Yes" : "No",
@@ -295,11 +305,13 @@ namespace Leauge_Auto_Accept
                     Print.printCentered("");
                     break;
                 case 5:
-                    Print.printCentered("Automatically trade pick order when someone requests to.", topPad + maxPos + 2);
+                    Print.printCentered("Automatically trade pick order when someone requests to.",
+                        topPad + maxPos + 2);
                     Print.printCentered("");
                     break;
                 case 6:
-                    Print.printCentered("Instantly hover champion as soon as joining champ select.", topPad + maxPos + 2);
+                    Print.printCentered("Instantly hover champion as soon as joining champ select.",
+                        topPad + maxPos + 2);
                     Print.printCentered("In draft pick, it will hover before you are normally able to.");
                     break;
                 case 7:
@@ -333,7 +345,6 @@ namespace Leauge_Auto_Accept
         }
 
 
-
         public static void delayMenu()
         {
             Print.canMovePos = false;
@@ -350,7 +361,8 @@ namespace Leauge_Auto_Accept
             Console.Clear();
 
             // Define options
-            string[] optionName = {
+            string[] optionName =
+            {
                 "Pick hover delay upon phase start",
                 "Pick lock delay upon phase start",
                 "Pick lock delay before phase end",
@@ -360,7 +372,8 @@ namespace Leauge_Auto_Accept
                 "Max queue time before restart",
                 "Chat Messages Delay"
             };
-            string[] optionValue = {
+            string[] optionValue =
+            {
                 Settings.pickStartHoverDelay.ToString(),
                 Settings.pickStartlockDelay.ToString(),
                 Settings.pickEndlockDelay.ToString(),
@@ -394,7 +407,8 @@ namespace Leauge_Auto_Accept
                     Print.printCentered("Default is 10000.");
                     break;
                 case 1:
-                    Print.printCentered("Delay after which to lock in your pick, after you are able to.", topPad + maxPos + 2);
+                    Print.printCentered("Delay after which to lock in your pick, after you are able to.",
+                        topPad + maxPos + 2);
                     Print.printCentered("Default is 999999999.");
                     break;
                 case 2:
@@ -406,7 +420,8 @@ namespace Leauge_Auto_Accept
                     Print.printCentered("Default is 1500.");
                     break;
                 case 4:
-                    Print.printCentered("Delay after which to lock in your pick, after you are able to.", topPad + maxPos + 2);
+                    Print.printCentered("Delay after which to lock in your pick, after you are able to.",
+                        topPad + maxPos + 2);
                     Print.printCentered("Default is 999999999.");
                     break;
                 case 5:
@@ -414,7 +429,8 @@ namespace Leauge_Auto_Accept
                     Print.printCentered("Default is 1000.");
                     break;
                 case 6:
-                    Print.printCentered("How long should the queue be before cancelling and restarting it?", topPad + maxPos + 2);
+                    Print.printCentered("How long should the queue be before cancelling and restarting it?",
+                        topPad + maxPos + 2);
                     Print.printCentered("Default is 300000.");
                     break;
                 case 7:
@@ -523,6 +539,7 @@ namespace Leauge_Auto_Accept
             {
                 champsFiltered.Add(new itemList() { name = "Unselected", id = "0" });
             }
+
             if (currentChampPicker == 1)
             {
                 if ("none".Contains(Navigation.currentInput.ToLower()))
@@ -530,6 +547,7 @@ namespace Leauge_Auto_Accept
                     champsFiltered.Add(new itemList() { name = "None", id = "-1" });
                 }
             }
+
             foreach (var champ in Data.champsSorterd)
             {
                 if (champ.name.ToLower().Contains(Navigation.currentInput.ToLower()))
@@ -573,8 +591,10 @@ namespace Leauge_Auto_Accept
                 {
                     lineNew = "".PadRight(119, ' ');
                 }
+
                 Print.printWhenPossible(lineNew);
             }
+
             Navigation.handlePointerMovementPrint();
             Print.canMovePos = true;
             displayCursorIfNeeded();
@@ -617,6 +637,7 @@ namespace Leauge_Auto_Accept
             {
                 spellsFiltered.Add(new itemList() { name = "Unselected", id = "0" });
             }
+
             foreach (var spell in Data.spellsSorted)
             {
                 if (spell.name.ToLower().Contains(Navigation.currentInput.ToLower()))
@@ -656,8 +677,10 @@ namespace Leauge_Auto_Accept
                 {
                     lineNew = "".PadRight(119, ' ');
                 }
+
                 Print.printWhenPossible(lineNew);
             }
+
             Navigation.handlePointerMovementPrint();
             Print.canMovePos = true;
             displayCursorIfNeeded();
@@ -689,7 +712,8 @@ namespace Leauge_Auto_Accept
         {
             int[] position = { 54, 10 };
 
-            string[] lines = {
+            string[] lines =
+            {
                 "  oooo   oooo",
                 " o    o o    o ",
                 "o      o      o",
@@ -733,7 +757,9 @@ namespace Leauge_Auto_Accept
             topPad = 1;
             leftPad = 2;
             maxPos = Settings.chatMessages.Count + 1; // +1 for "new message" row
-            int messageWidth = SizeHandler.WindowWidth - (leftPad * 2) - 6; // calclate the amount of characters to display of each messages before cropping it
+            int messageWidth =
+                SizeHandler.WindowWidth - (leftPad * 2) -
+                6; // calclate the amount of characters to display of each messages before cropping it
             totalRows = SizeHandler.WindowHeight - 4; // calculate rows per page
             if (maxPos > totalRows)
             {
@@ -765,7 +791,9 @@ namespace Leauge_Auto_Accept
                 }
 
                 // Limit messages to console width, crop and add an ellipsis at the end if the message is too long
-                string messageOutput = message.Length > messageWidth ? message.Substring(0, messageWidth - 3) + "..." : message;
+                string messageOutput = message.Length > messageWidth
+                    ? message.Substring(0, messageWidth - 3) + "..."
+                    : message;
                 Print.printWhenPossible(messageOutput, currentConsoleRow++, leftPad + 3, false);
                 currentMessagePrint++;
             }
@@ -855,6 +883,7 @@ namespace Leauge_Auto_Accept
             {
                 Print.printCentered(chunk2, topPad + 1, false, true);
             }
+
             displayCursorIfNeeded();
         }
 

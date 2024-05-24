@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+using System.Globalization;
 
 namespace Leauge_Auto_Accept
 {
@@ -20,7 +14,8 @@ namespace Leauge_Auto_Accept
         {
             double retNum;
 
-            bool isNum = Double.TryParse(Convert.ToString(Expression), System.Globalization.NumberStyles.Any, System.Globalization.NumberFormatInfo.InvariantInfo, out retNum);
+            bool isNum = Double.TryParse(Convert.ToString(Expression), NumberStyles.Any,
+                NumberFormatInfo.InvariantInfo, out retNum);
             return isNum;
         }
     }

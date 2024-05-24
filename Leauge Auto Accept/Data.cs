@@ -49,7 +49,8 @@ namespace Leauge_Auto_Accept
                 List<itemList> champs = new List<itemList>();
 
                 Print.printCentered("Getting champions and ownership list...", 15);
-                string[] ownedChamps = LCU.clientRequestUntilSuccess("GET", "lol-champions/v1/inventories/" + currentSummonerId + "/champions-minimal");
+                string[] ownedChamps = LCU.clientRequestUntilSuccess("GET",
+                    "lol-champions/v1/inventories/" + currentSummonerId + "/champions-minimal");
                 Console.Clear();
                 string[] champsSplit = ownedChamps[1].Split("},{");
                 Debug.WriteLine(ownedChamps[1]);
@@ -84,6 +85,7 @@ namespace Leauge_Auto_Accept
                     {
                         isAvailable = false;
                     }
+
                     champs.Add(new itemList() { name = champName, id = champId, free = isAvailable });
                 }
 
@@ -105,7 +107,8 @@ namespace Leauge_Auto_Accept
                 List<string> enabledSpells = new List<string>();
 
                 Print.printCentered("Getting a list of available summoner spells...", 15);
-                string[] availableSpells = LCU.clientRequestUntilSuccess("GET", "lol-collections/v1/inventories/" + currentSummonerId + "/spells");
+                string[] availableSpells = LCU.clientRequestUntilSuccess("GET",
+                    "lol-collections/v1/inventories/" + currentSummonerId + "/spells");
                 Console.Clear();
                 string[] spellsSplit = availableSpells[1].Split('[')[1].Split(']')[0].Split(',');
 
@@ -113,7 +116,8 @@ namespace Leauge_Auto_Accept
                 string[] platformConfig = LCU.clientRequestUntilSuccess("GET", "lol-platform-config/v1/namespaces");
                 Console.Clear();
                 string[] enabledGameModes = platformConfig[1].Split("EnabledModes\":[")[1].Split(']')[0].Split(',');
-                string[] inactiveSpellsPerGameMode = platformConfig[1].Split("gameModeToInactiveSpellIds\":{")[1].Split('}')[0].Split("],");
+                string[] inactiveSpellsPerGameMode =
+                    platformConfig[1].Split("gameModeToInactiveSpellIds\":{")[1].Split('}')[0].Split("],");
 
                 Console.Clear();
                 foreach (var gameMode in enabledGameModes)
@@ -136,6 +140,7 @@ namespace Leauge_Auto_Accept
                                         break;
                                     }
                                 }
+
                                 if (isActive)
                                 {
                                     enabledSpells.Add(spell);
@@ -164,12 +169,14 @@ namespace Leauge_Auto_Accept
                         {
                             continue;
                         }
+
                         string spellId = spellSingle.Split("id\":")[1].Split(',')[0];
                         if (spell == spellId)
                         {
                             spellName = spellSingle.Split("name\":\"")[1].Split('"')[0];
                         }
                     }
+
                     spellsSorted.Add(new itemList() { name = spellName, id = spell });
                 }
 

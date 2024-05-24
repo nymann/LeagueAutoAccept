@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Threading;
 
 namespace Leauge_Auto_Accept
@@ -36,6 +35,7 @@ namespace Leauge_Auto_Accept
                     CalculateCenter();
                     handleResize();
                 }
+
                 Thread.Sleep(1000);
             }
         }

@@ -43,11 +43,13 @@ namespace Leauge_Auto_Accept
                         preloadData = !preloadData;
                         UI.settingsMenuUpdateUI(1);
                     }
+
                     if (saveSettings && disableUpdateCheck)
                     {
                         disableUpdateCheck = !disableUpdateCheck;
                         UI.settingsMenuUpdateUI(4);
                     }
+
                     saveSettings = !saveSettings;
                     break;
                 case 1:
@@ -56,6 +58,7 @@ namespace Leauge_Auto_Accept
                         saveSettings = !saveSettings;
                         UI.settingsMenuUpdateUI(0);
                     }
+
                     preloadData = !preloadData;
                     break;
                 case 2:
@@ -70,6 +73,7 @@ namespace Leauge_Auto_Accept
                         saveSettings = !saveSettings;
                         UI.settingsMenuUpdateUI(0);
                     }
+
                     disableUpdateCheck = !disableUpdateCheck;
                     break;
                 case 5:
@@ -101,52 +105,52 @@ namespace Leauge_Auto_Accept
             switch (item)
             {
                 case 0:
-                    {
-                        int newNum = delayCalculateNewValue(pickStartHoverDelay, number);
-                        pickStartHoverDelay = newNum;
-                    }
+                {
+                    int newNum = delayCalculateNewValue(pickStartHoverDelay, number);
+                    pickStartHoverDelay = newNum;
+                }
                     break;
                 case 1:
-                    {
-                        int newNum = delayCalculateNewValue(pickStartlockDelay, number);
-                        pickStartlockDelay = newNum;
-                    }
+                {
+                    int newNum = delayCalculateNewValue(pickStartlockDelay, number);
+                    pickStartlockDelay = newNum;
+                }
                     break;
                 case 2:
-                    {
-                        int newNum = delayCalculateNewValue(pickEndlockDelay, number);
-                        pickEndlockDelay = newNum;
-                    }
+                {
+                    int newNum = delayCalculateNewValue(pickEndlockDelay, number);
+                    pickEndlockDelay = newNum;
+                }
                     break;
                 case 3:
-                    {
-                        int newNum = delayCalculateNewValue(banStartHoverDelay, number);
-                        banStartHoverDelay = newNum;
-                    }
+                {
+                    int newNum = delayCalculateNewValue(banStartHoverDelay, number);
+                    banStartHoverDelay = newNum;
+                }
                     break;
                 case 4:
-                    {
-                        int newNum = delayCalculateNewValue(banStartlockDelay, number);
-                        banStartlockDelay = newNum;
-                    }
+                {
+                    int newNum = delayCalculateNewValue(banStartlockDelay, number);
+                    banStartlockDelay = newNum;
+                }
                     break;
                 case 5:
-                    {
-                        int newNum = delayCalculateNewValue(banEndlockDelay, number);
-                        banEndlockDelay = newNum;
-                    }
+                {
+                    int newNum = delayCalculateNewValue(banEndlockDelay, number);
+                    banEndlockDelay = newNum;
+                }
                     break;
                 case 6:
-                    {
-                        int newNum = delayCalculateNewValue(queueMaxTime, number);
-                        queueMaxTime = newNum;
-                    }
+                {
+                    int newNum = delayCalculateNewValue(queueMaxTime, number);
+                    queueMaxTime = newNum;
+                }
                     break;
                 case 7:
-                    {
-                        int newNum = delayCalculateNewValue(chatMessagesDelay, number);
-                        chatMessagesDelay = newNum;
-                    }
+                {
+                    int newNum = delayCalculateNewValue(chatMessagesDelay, number);
+                    chatMessagesDelay = newNum;
+                }
                     break;
             }
 
@@ -189,6 +193,7 @@ namespace Leauge_Auto_Accept
             {
                 champsFiltered.Add(new itemList() { name = "Unselected", id = "0" });
             }
+
             if (UI.currentChampPicker == 1)
             {
                 if ("none".Contains(Navigation.currentInput.ToLower()))
@@ -196,6 +201,7 @@ namespace Leauge_Auto_Accept
                     champsFiltered.Add(new itemList() { name = "None", id = "-1" });
                 }
             }
+
             foreach (var champ in Data.champsSorterd)
             {
                 if (champ.name.ToLower().Contains(Navigation.currentInput.ToLower()))
@@ -207,6 +213,7 @@ namespace Leauge_Auto_Accept
                             continue;
                         }
                     }
+
                     champsFiltered.Add(new itemList() { name = champ.name, id = champ.id });
                 }
             }
@@ -225,6 +232,7 @@ namespace Leauge_Auto_Accept
                     name = champsFiltered[Navigation.currentPos].name;
                     id = champsFiltered[Navigation.currentPos].id;
                 }
+
                 if (UI.currentChampPicker == 0)
                 {
                     currentChamp[0] = name;
@@ -235,6 +243,7 @@ namespace Leauge_Auto_Accept
                     currentBan[0] = name;
                     currentBan[1] = id;
                 }
+
                 if (saveSettings)
                 {
                     settingsSave();
@@ -249,6 +258,7 @@ namespace Leauge_Auto_Accept
             {
                 spellsFiltered.Add(new itemList() { name = "Unselected", id = "0" });
             }
+
             foreach (var spell in Data.spellsSorted)
             {
                 if (spell.name.ToLower().Contains(Navigation.currentInput.ToLower()))
@@ -271,6 +281,7 @@ namespace Leauge_Auto_Accept
                     name = spellsFiltered[Navigation.currentPos].name;
                     id = spellsFiltered[Navigation.currentPos].id;
                 }
+
                 if (UI.currentSpellSlot == 0)
                 {
                     currentSpell1[0] = name;
@@ -281,6 +292,7 @@ namespace Leauge_Auto_Accept
                     currentSpell2[0] = name;
                     currentSpell2[1] = id;
                 }
+
                 if (saveSettings)
                 {
                     settingsSave();
@@ -298,6 +310,7 @@ namespace Leauge_Auto_Accept
             {
                 chatMessages.Add(Navigation.currentInput);
             }
+
             updateChatMessagesToggle();
             if (saveSettings)
             {
@@ -311,6 +324,7 @@ namespace Leauge_Auto_Accept
             {
                 chatMessages.RemoveAt(UI.messageIndex);
             }
+
             updateChatMessagesToggle();
 
             if (saveSettings)
@@ -341,7 +355,11 @@ namespace Leauge_Auto_Accept
 
         private static void decodeMessagesFromBase64(string messages)
         {
-            if (messages == "") { return; }
+            if (messages == "")
+            {
+                return;
+            }
+
             byte[] byteArray = Convert.FromBase64String(messages);
             string joinedString = Encoding.UTF8.GetString(byteArray);
             chatMessages = new List<string>(joinedString.Split('|'));
@@ -376,7 +394,8 @@ namespace Leauge_Auto_Accept
                 ",disableUpdateCheck:" + disableUpdateCheck +
                 ",chatMessages:" + encodeMessagesIntoBase64();
 
-            string dirParameter = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leauge Auto Accept Config.txt";
+            string dirParameter = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                                  @"\Leauge Auto Accept Config.txt";
             using (StreamWriter m_WriterParameter = new StreamWriter(dirParameter, false))
             {
                 m_WriterParameter.Write(config);
@@ -395,6 +414,7 @@ namespace Leauge_Auto_Accept
                 MainLogic.isAutoAcceptOn = true;
                 shouldAutoAcceptbeOn = true;
             }
+
             if (saveSettings)
             {
                 settingsSave();
@@ -403,13 +423,15 @@ namespace Leauge_Auto_Accept
 
         public static void deleteSettings()
         {
-            string dirParameter = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leauge Auto Accept Config.txt";
+            string dirParameter = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                                  @"\Leauge Auto Accept Config.txt";
             File.Delete(dirParameter);
         }
 
         public static void loadSettings()
         {
-            string dirParameter = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Leauge Auto Accept Config.txt";
+            string dirParameter = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) +
+                                  @"\Leauge Auto Accept Config.txt";
             if (File.Exists(dirParameter))
             {
                 string text = File.ReadAllText(dirParameter);
@@ -496,6 +518,7 @@ namespace Leauge_Auto_Accept
                             updateChatMessagesToggle();
                             break;
                     }
+
                     saveSettings = true;
                 }
             }

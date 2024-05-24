@@ -1,16 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.IO;
-using System.Net;
-using System.Threading;
-using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
-using System.Text.RegularExpressions;
-using System.Net.Http.Headers;
-using System.Net.Http;
-using System.Reflection;
 
 namespace Leauge_Auto_Accept
 {

@@ -18,7 +18,8 @@ public struct ParentProcessUtilities
     internal IntPtr InheritedFromUniqueProcessId;
 
     [DllImport("ntdll.dll")]
-    private static extern int NtQueryInformationProcess(IntPtr processHandle, int processInformationClass, ref ParentProcessUtilities processInformation, int processInformationLength, out int returnLength);
+    private static extern int NtQueryInformationProcess(IntPtr processHandle, int processInformationClass,
+        ref ParentProcessUtilities processInformation, int processInformationLength, out int returnLength);
 
     /// <summary>
     /// Gets the parent process of the current process.

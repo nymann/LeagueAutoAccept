@@ -88,6 +88,7 @@ namespace Leauge_Auto_Accept
                             lastChatRoom = "";
                         }
                     }
+
                     Thread.Sleep(50);
                 }
                 else
@@ -113,6 +114,7 @@ namespace Leauge_Auto_Accept
                     queueStartTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
                 }
             }
+
             lastPhase = phase;
         }
 
@@ -137,9 +139,11 @@ namespace Leauge_Auto_Accept
                     sentChatMessages = false;
                     champSelectStart = DateTimeOffset.Now.ToUnixTimeMilliseconds();
                 }
+
                 lastChatRoom = currentChatRoom;
 
-                if (pickedChamp && lockedChamp && pickedBan && lockedBan && pickedSpell1 && pickedSpell2 && sentChatMessages)
+                if (pickedChamp && lockedChamp && pickedBan && lockedBan && pickedSpell1 && pickedSpell2 &&
+                    sentChatMessages)
                 {
                     // Sleep a little if we already did everything we needed to do
                     Thread.Sleep(1000);
@@ -154,19 +158,23 @@ namespace Leauge_Auto_Accept
                         pickedChamp = true;
                         lockedChamp = true;
                     }
+
                     if (Settings.currentBan[1] == "0")
                     {
                         pickedBan = true;
                         lockedBan = true;
                     }
+
                     if (Settings.currentSpell1[1] == "0")
                     {
                         pickedSpell1 = true;
                     }
+
                     if (Settings.currentSpell2[1] == "0")
                     {
                         pickedSpell2 = true;
                     }
+
                     if (!Settings.chatMessagesEnabled)
                     {
                         sentChatMessages = true;
@@ -183,21 +191,28 @@ namespace Leauge_Auto_Accept
                     {
                         handleChampSelectActions(currentChampSelect, localPlayerCellId);
                     }
+
                     if (!sentChatMessages)
                     {
                         handleChampSelectChat(currentChatRoom);
                     }
+
                     if (!pickedSpell1)
                     {
-                        string[] champSelectAction = LCU.clientRequest("PATCH", "lol-champ-select/v1/session/my-selection", "{\"spell1Id\":" + Settings.currentSpell1[1] + "}");
+                        string[] champSelectAction = LCU.clientRequest("PATCH",
+                            "lol-champ-select/v1/session/my-selection",
+                            "{\"spell1Id\":" + Settings.currentSpell1[1] + "}");
                         if (champSelectAction[0] == "204")
                         {
                             pickedSpell1 = true;
                         }
                     }
+
                     if (!pickedSpell2)
                     {
-                        string[] champSelectAction = LCU.clientRequest("PATCH", "lol-champ-select/v1/session/my-selection", "{\"spell2Id\":" + Settings.currentSpell2[1] + "}");
+                        string[] champSelectAction = LCU.clientRequest("PATCH",
+                            "lol-champ-select/v1/session/my-selection",
+                            "{\"spell2Id\":" + Settings.currentSpell2[1] + "}");
                         if (champSelectAction[0] == "204")
                         {
                             pickedSpell2 = true;
@@ -220,7 +235,6 @@ namespace Leauge_Auto_Accept
                 {
                     handleChampSelectChatSendMsg(chatId);
                 }
-
             }
         }
 
@@ -233,13 +247,17 @@ namespace Leauge_Auto_Accept
                 while (httpRes != "200" && attempts < 3)
                 {
                     string timestamp = DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm:ssZ");
-                    string body = "{\"type\":\"chat\",\"fromId\":\"" + Data.currentChatId + "\",\"fromSummonerId\":" + Data.currentSummonerId + ",\"isHistorical\":false,\"timestamp\":\"" + timestamp + "\",\"body\":\"" + message + "\"}";
-                    string[] response = LCU.clientRequest("POST", "lol-chat/v1/conversations/" + chatId + "/messages", body);
+                    string body = "{\"type\":\"chat\",\"fromId\":\"" + Data.currentChatId + "\",\"fromSummonerId\":" +
+                                  Data.currentSummonerId + ",\"isHistorical\":false,\"timestamp\":\"" + timestamp +
+                                  "\",\"body\":\"" + message + "\"}";
+                    string[] response = LCU.clientRequest("POST", "lol-chat/v1/conversations/" + chatId + "/messages",
+                        body);
                     attempts++;
                     httpRes = response[0];
                     Thread.Sleep(attempts * 20);
                 }
             }
+
             sentChatMessages = true;
         }
 
@@ -269,7 +287,8 @@ namespace Leauge_Auto_Accept
             }
         }
 
-        private static void handlePickAction(string actId, string championId, string ActIsInProgress, string[] currentChampSelect)
+        private static void handlePickAction(string actId, string championId, string ActIsInProgress,
+            string[] currentChampSelect)
         {
             if (!pickedChamp)
             {
@@ -277,7 +296,8 @@ namespace Leauge_Auto_Accept
                 string champSelectPhase = currentChampSelect[1].Split("\"phase\":\"")[1].Split('"')[0];
                 long currentTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
-                if ((currentTime - Settings.pickStartHoverDelay) > champSelectStart // Check if enough time has passed since planning phase has started
+                if ((currentTime - Settings.pickStartHoverDelay) >
+                    champSelectStart // Check if enough time has passed since planning phase has started
                     || champSelectPhase != "PLANNING" // Check if it's even planning phase at all
                     || Settings.instantHover) // Check if instahover setting is on
                 {
@@ -304,7 +324,8 @@ namespace Leauge_Auto_Accept
             }
         }
 
-        private static void handleBanAction(string actId, string championId, string ActIsInProgress, string[] currentChampSelect)
+        private static void handleBanAction(string actId, string championId, string ActIsInProgress,
+            string[] currentChampSelect)
         {
             string champSelectPhase = currentChampSelect[1].Split("\"phase\":\"")[1].Split('"')[0];
 
@@ -318,7 +339,8 @@ namespace Leauge_Auto_Accept
                     // Hover champion when champ select starts
                     long currentTime = DateTimeOffset.Now.ToUnixTimeMilliseconds();
 
-                    if ((currentTime - Settings.banStartHoverDelay) > champSelectStart) // Check if enough time has passed since planning phase has started
+                    if ((currentTime - Settings.banStartHoverDelay) >
+                        champSelectStart) // Check if enough time has passed since planning phase has started
                     {
                         hoverChampion(actId, Settings.currentBan[1], "ban");
                     }
@@ -350,7 +372,8 @@ namespace Leauge_Auto_Accept
 
         private static void hoverChampion(string actId, string currentChamp, string actType)
         {
-            string[] champSelectAction = LCU.clientRequest("PATCH", "lol-champ-select/v1/session/actions/" + actId, "{\"championId\":" + currentChamp + "}");
+            string[] champSelectAction = LCU.clientRequest("PATCH", "lol-champ-select/v1/session/actions/" + actId,
+                "{\"championId\":" + currentChamp + "}");
             if (champSelectAction[0] == "204")
             {
                 if (actType == "pick")
@@ -366,7 +389,8 @@ namespace Leauge_Auto_Accept
 
         private static void lockChampion(string actId, string championId, string actType)
         {
-            string[] champSelectAction = LCU.clientRequest("PATCH", "lol-champ-select/v1/session/actions/" + actId, "{\"completed\":true,\"championId\":" + championId + "}");
+            string[] champSelectAction = LCU.clientRequest("PATCH", "lol-champ-select/v1/session/actions/" + actId,
+                "{\"completed\":true,\"championId\":" + championId + "}");
             if (champSelectAction[0] == "204")
             {
                 if (actType == "pick")
@@ -395,6 +419,7 @@ namespace Leauge_Auto_Accept
             {
                 delayPreEnd = Settings.banEndlockDelay;
             }
+
             if (currentTime >= lastActStartTime + timerInt - delayPreEnd)
             {
                 lockChampion(actId, championId, actType);
@@ -416,7 +441,7 @@ namespace Leauge_Auto_Accept
                 lockChampion(actId, championId, actType);
             }
         }
-        
+
         private static void handlePickOrderSwap()
         {
             // Return if we already locked in or if the settings is off
@@ -434,6 +459,7 @@ namespace Leauge_Auto_Accept
                 {
                     return;
                 }
+
                 // Get action ID
                 string swapId = swap[1].Split("\"id\":")[1].Split(',')[0];
 

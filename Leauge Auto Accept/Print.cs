@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace Leauge_Auto_Accept
 {
@@ -14,12 +9,14 @@ namespace Leauge_Auto_Accept
         public static bool isMovingPos = false;
         private static int lastRow = 0;
 
-        public static void printWhenPossible(string text, int top = -1, int left = -1, bool newLine = true, bool updateCursor = false)
+        public static void printWhenPossible(string text, int top = -1, int left = -1, bool newLine = true,
+            bool updateCursor = false)
         {
             if (isMovingPos)
             {
                 Thread.Sleep(2);
             }
+
             canMovePos = false;
             if (left >= 0 || top >= 0)
             {
@@ -27,12 +24,15 @@ namespace Leauge_Auto_Accept
                 {
                     left = 0;
                 }
+
                 if (top < 0)
                 {
                     top = lastRow;
                 }
+
                 Console.SetCursorPosition(left, top);
             }
+
             if (newLine)
             {
                 Console.WriteLine(text);
@@ -42,10 +42,12 @@ namespace Leauge_Auto_Accept
             {
                 Console.Write(text);
             }
+
             if (updateCursor)
             {
                 UI.cursorPosition = new int[] { left, top };
             }
+
             canMovePos = true;
         }
 
@@ -69,7 +71,8 @@ namespace Leauge_Auto_Accept
             int leftPadding = (windowWidth - textLength) / 2;
             int rightPadding = windowWidth - textLength - leftPadding;
 
-            string paddedText = text.PadLeft(leftPadding + textLength).PadRight(rightPadding + leftPadding + textLength);
+            string paddedText = text.PadLeft(leftPadding + textLength)
+                .PadRight(rightPadding + leftPadding + textLength);
 
             // return paddedText;
             return new string[] { paddedText, leftPadding.ToString(), textLength.ToString() };
@@ -79,7 +82,8 @@ namespace Leauge_Auto_Accept
         {
             if (text.Length >= replaceIndex)
             {
-                return text.Substring(0, replaceIndex) + replacement + text.Substring(replaceIndex + replacement.Length);
+                return text.Substring(0, replaceIndex) + replacement +
+                       text.Substring(replaceIndex + replacement.Length);
             }
             else
             {
